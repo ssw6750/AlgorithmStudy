@@ -35,7 +35,7 @@ for test_case in range(1, T + 1):
                     count=0
                     n=N
                     break
-                else:           #l[tmp]위치의 충전소 정류장을 방문
+                else:           #l[tmp-1]위치의 충전소 정류장을 방문
                     count+=1
                     n=tmp-1
                     break
