@@ -1,5 +1,20 @@
 # https://velog.io/@jinho0705/SWEA-4871.-%EA%B7%B8%EB%9E%98%ED%94%84-%EA%B2%BD%EB%A1%9Cpython
 
+def dfs(start, end):
+    stack = []
+    visit = [False] * (N+1)
+    stack.append(start)
+    # 입력받은 start부터 시작, 값이 있고 아직 방문하지 않은 정점이면 stack에 추가
+    while stack:
+        v = stack.pop()
+        visit[v]=True
+        for w in range(N+1):
+            if not visit[w]:
+                if arr[v][w]:
+                    stack.append(w)
+    # end 지점을 방문하였는지 반환
+    return visit[end]
+
 #테스트 케이스 수 입력
 T = int(input())
 for test_case in range(1, T+1):
@@ -18,17 +33,3 @@ for test_case in range(1, T+1):
     print('#{} {}'.format(test_case, result))
 
 
-def dfs(start, end):
-    stack = []
-    visit = [False] * (V+1)
-    stack.append(start)
-    # 입력받은 start부터 시작, 값이 있고 아직 방문하지 않은 정점이면 stack에 추가
-    while stack:
-        v = stack.pop()
-        visit[v]=True
-        for w in range(V+1):
-            if not visit[w]:
-                if arr[v][w]:
-                    stack.append(w)
-    # end 지점을 방문하였는지 반환
-    return visit[end]
