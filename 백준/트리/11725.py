@@ -22,7 +22,6 @@ def dfs(s):
             v[i] = s
             dfs(i)
 
-n = int(sys.stdin.readline())
 input = sys.stdin.readline
 
 n = int(input())
