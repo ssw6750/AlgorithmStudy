@@ -15,6 +15,7 @@
 #     print(tree[i])
 
 import sys
+sys.setrecursionlimit(10**9) # 최대 재귀 깊이 늘리기
 
 def dfs(s):
     for i in g[s]:
