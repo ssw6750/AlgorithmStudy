@@ -1,4 +1,4 @@
-# 83%...
+# 83%...힌트 확인
 
 import sys
 import copy
