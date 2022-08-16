@@ -1,4 +1,6 @@
 # 왜 틀리지...
+cnt = Counter(s).most_common()
+
 
 import sys
 from collections import defaultdict
