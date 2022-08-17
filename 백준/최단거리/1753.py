@@ -2,7 +2,6 @@ import sys, heapq
 input = sys.stdin.readline
 INF = float('inf')
 
-
 def dijkstra(start):
     q = []
     heapq.heappush(q, (0, start))
@@ -18,7 +17,6 @@ def dijkstra(start):
                 distance[i[0]] = cost
                 heapq.heappush(q, (cost, i[0]))
 
-
 v, e = map(int, input().split())
 start = int(input())
 graph = [[] for _ in range(v+1)]
@@ -30,6 +28,6 @@ for _ in range(e):
 
 dijkstra(start)
 
-for i in range(1, v+2):
+for i in range(1, len(distance)):
     if distance[i] == INF: print('INF')
     else: print(distance[i])
