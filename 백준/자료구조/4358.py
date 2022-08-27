@@ -1,11 +1,12 @@
 # 알 수 없는 입출력 에러...
 import sys
+input = sys.stdin.readline
 dic={}
 sum=0
 
 while True:
-    tmp = sys.stdin.readline().rstrip()
-    if tmp == '': 
+    tmp = input()
+    if tmp == '\n': 
         break
     if tmp in dic:
         dic[tmp] +=1
