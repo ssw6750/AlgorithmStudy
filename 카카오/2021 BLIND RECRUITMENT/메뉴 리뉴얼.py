@@ -1,6 +1,8 @@
 from collections import defaultdict
 from itertools import combinations
 
+# menu_list = Counter(menu).most_common()
+
 def solution(orders, course):
     answer = []
     d = defaultdict(int)
