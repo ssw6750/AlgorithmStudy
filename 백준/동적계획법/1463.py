@@ -1,5 +1,3 @@
-# 100% 가서 틀림
-
 import sys
 input = sys.stdin.readline
 
