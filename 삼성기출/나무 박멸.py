@@ -34,6 +34,7 @@ v = [[0 for _ in range(n)] for _ in range(n)]
 
 all_cnt = 0
 for y in range(m):
+
     # 성장 (인접한 나무에 영향)
     for i in range(n):
         for j in range(n):
@@ -88,14 +89,19 @@ for y in range(m):
                 mtx[i][j]+=2
 
 
+
+    yyy = mx[0][0]
+    xxx = mx[0][1]
+    print(yyy)
+
     # 제초
-    mtx[mx[0][0]][mx[0][1]] = -2
+    mtx[yyy][xxx] = (-2)*c
     for o in range(1, k+1):
             for t in range(4):
                 yy = mx[0][0]+o*dy2[t]
                 xx = mx[0][1]+o*dx2[t]
                 if 0 <= yy < n and 0 <= xx < n:
-                    mtx[yy][xx] = -2*c
+                    mtx[yy][xx] = (-2)*c
 
 
 print(all_cnt)
