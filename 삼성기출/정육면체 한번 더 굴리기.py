@@ -1,9 +1,8 @@
 import sys
 input = sys.stdin.readline
-from copy import deepcopy
 from collections import deque
 
-dy = [0, -1, 0, 1]
+dy = [0, 1, 0, -1]
 dx = [1, 0, -1, 0]
 
 def value_sum(i, j, n1, mtx):
@@ -30,28 +29,24 @@ def value_sum(i, j, n1, mtx):
 
 def dice(F, R, U, d):
     #오른쪽 아래, 왼쪽, 위
-    dir = [
+    dirs = [
         [F, U, 7-R],
         [U, R, 7-F],
         [F, 7-U, R],
         [7-U, R, F]
     ]
-    return dir[d]
+    return dirs[d]
 
-def move(i, j, dir, dic):
-    ii = i+dy[dir]
-    jj = j+dx[dir]
+def move(i, j, dir1, dic):
+    ii = i+dy[dir1]
+    jj = j+dx[dir1]
+
     if ii < 0 or ii >= n or jj < 0 or jj >= n:
-        dir = (dir+2)%4
-        ii = i+dy[dir]
-        jj = j+dx[dir]
-    # elif jj < 0 or jj >= n:
-    #     dir = d+2//4
-    #     ii = i+dy[d]
-    #     jj = i+dx[d]
-    #     dic = dice(dic[0], dic[1], dic[2], direction)
-    dic = dice(dic[0], dic[1], dic[2], dir)
-    return ii, jj, dir, dic
+        dir1 = (dir1+2)%4
+        ii = i+dy[dir1]
+        jj = j+dx[dir1]
+    dic = dice(dic[0], dic[1], dic[2], dir1)
+    return ii, jj, dir1, dic
 
 n, m = map(int, input().split())
 answer = 0
@@ -71,7 +66,8 @@ for _ in range(m):
     answer+=value_sum(_i, _j, n, mtx)
     if d_f > f:
         direction=(direction+1)%4
+    elif d_f <f:
+        direction=(direction-1)%4
 
 print(answer)
-
 

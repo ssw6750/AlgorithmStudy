@@ -13,15 +13,6 @@ for i in range(n):
 dead_tree = 0
 year = 0
 while year < m:        
-    if year > 0:
-        for i in range(n):
-            for j in range(n):
-                if matrix[i][j][0] == -2:
-                    rest_year = matrix[i][j][1]
-                    if rest_year - 1 == -1:           
-                        matrix[i][j] = [0, 0]
-                    else:
-                        matrix[i][j][1] -= 1
     # 성장
     for i in range(n):
         for j in range(n):
@@ -65,54 +56,65 @@ while year < m:
     for x, y, val in memo:
         matrix[x][y][0] += val # 모든 나무 칸에서 번식이 이루어지기에 += 를 쓴다.
 
+
+     # 제초기간 -1
+    for i in range(n):
+        for j in range(n):
+            if matrix[i][j][0] == -2:
+                rest_year = matrix[i][j][1]
+                if rest_year - 1 == -1:           
+                    matrix[i][j] = [0, 0]
+                else:
+                    matrix[i][j][1] -= 1
+
+
+
     # 제초제 위치 선정
     # 나무가 가장 많이 박멸되는 칸
     # tree_set = list(tree_set) #???
     # tree_set.sort()
+
     mx = 0        
     answer = (0, 0)       
     for i in range(n):
         for j in range(n):
-            if matrix[i][j][0] == -1:
+            if matrix[i][j][0] <= 0:
                 continue
-            if matrix[i][j][0] != 0:
-                if matrix[i][j][0] > 0:
-                    _mx = matrix[i][j][0]
-                else: _mx = 0
-                for _x, _y in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
-                    for _k in range(1, k + 1):
-                        dx, dy = i + _x * _k, j + _y * _k
-                        if 0 <= dx < n and 0 <= dy < n:
-                            if matrix[dx][dy][0] in [0, -1]:
-                                break
-                            else:
-                                if matrix[dx][dy][0] != -2: #!!!
-                                    _mx += matrix[dx][dy][0]
-            else: _mx = 0
+            _mx = matrix[i][j][0]
+            for _x, _y in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
+                for _k in range(1, k + 1):
+                    dx, dy = i + _x * _k, j + _y * _k
+                    if 0 <= dx < n and 0 <= dy < n:
+                        if matrix[dx][dy][0] <=0:
+                            break
+                        _mx += matrix[dx][dy][0]
             if mx < _mx:
                 mx = _mx
                 answer = (i, j)
     print(answer, mx)
     dead_tree+= mx
 
-
     # 제초제 뿌리기 (c년동안 진행)
 
     # copy_mat = deepcopy(matrix)
 
+
     i, j = answer
-    for _x, _y in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
-        for _k in range(k + 1):
-            dx, dy = i + _x * _k, j + _y * _k
-            if 0 <= dx < n and 0 <= dy < n:
-                if matrix[dx][dy][0] in [0, -1]:
-                    if matrix[dx][dy][0] == 0:
+    if matrix[i][j][0] > 0:
+        matrix[i][j][0] = -2
+        matrix[i][j][1] = c
+
+        for _x, _y in [(-1, -1), (-1, 1), (1, -1), (1, 1)]:
+            for _k in range(1, k + 1):
+                dx, dy = i + _x * _k, j + _y * _k
+                if 0 <= dx < n and 0 <= dy < n:
+                    if matrix[dx][dy][0] <=0:
+                        if matrix[dx][dy][0] == 0:
+                            matrix[dx][dy] = [-2, c]
+                        break
+                    else:
                         matrix[dx][dy] = [-2, c]
-                    break
-                else:
-                    # if matrix[dx][dy][0] != -2:
-                    #     dead_tree += matrix[dx][dy][0]
-                    matrix[dx][dy] = [-2, c]
+
 
     year += 1
 
