@@ -1,22 +1,31 @@
-import sys
-input = sys.stdin.readline
-
 T = int(input())
-# 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
+
 for test_case in range(1, T + 1):
-    n = int(input())
-    ar = list(map(int, input().split()))
-    idx = len(ar) - 1
-    money = 0
 
-    while idx > 0:
-        for i in range(idx-1, -1, -1):
-            if ar[idx] > ar[i]:
-                money += ar[idx] - ar[i]
-            else:
-                idx = i
-                break
-        else:
-            break
+    tmp = input().split()
+    nums = list(tmp[0])
+    change = int(tmp[1])
+    res = 0
 
-    print('#{} {}'.format(test_case, money))
+    def cal(li):
+        return int(''.join(s for s in li))
+
+    def dfs(li, cnt):
+        global res
+
+        if cnt == change:
+            res = max(res, cal(li))
+            return
+
+        for i in range(len(li)):
+            for j in range(i + 1, len(li)):
+                li[i], li[j] = li[j], li[i]
+                tmp = ''.join(li)
+                if visited.get((tmp, cnt), 1):
+                    visited[(tmp, cnt)] = 0
+                    dfs(li, cnt + 1)
+                li[i], li[j] = li[j], li[i]
+
+    visited = {}
+    dfs(nums, 0)
+    print(f'#{test_case} {res}')
