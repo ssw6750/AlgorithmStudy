@@ -1,5 +1,5 @@
 # 한줄에 20개씩 출력합니다
-# 왜 틀?
+
 
 import sys
 input = sys.stdin.readline
@@ -21,13 +21,13 @@ for i in range(c):
         change(a)
         ii = 1
         while True:
-            if a+ii <=n and a-ii >= 0 and ar[a+ii] == ar[a-ii]:
+            if a+ii <=n and a-ii > 0 and ar[a+ii] == ar[a-ii]:
                 change(a+ii)
                 change(a-ii)
                 ii+=1
             else: break
 
-for i in range(1+n):
+for i in range(1, 1+n):
     print(ar[i], end =' ')
     if i % 20 == 0:
         print()
