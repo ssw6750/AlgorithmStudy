@@ -1,4 +1,5 @@
 # 한줄에 20개씩 출력합니다
+# 왜 틀?
 
 import sys
 input = sys.stdin.readline
