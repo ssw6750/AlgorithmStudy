@@ -1,19 +1,21 @@
-import sys
+import sys, heapq
 input = sys.stdin.readline
-sys.setrecursionlimit(10**6)
-
-def F(x, cnt):
-    v[x] = cnt
-    if x*2<100001 and v[x*2] == -1:
-        F(x*2, cnt)
-    if x+1<100001 and v[x+1] == -1:
-        F(x+1, cnt+1)
-    if x-1<100001 and v[x-1] == -1:
-        F(x-1, cnt+1)
 
 n,k = map(int,input().split())
-v = [-1] * 100001
+visited = [False]*100001
+visited[n] = True
+hq = [([0,n])]
 
-F(n, 0)
-
-print(v[k])
+while hq:
+    t,x = heapq.heappop(hq)
+    if x == k:
+        print(t)
+        break
+    dx = x*2
+    if dx < len(visited) and not visited[dx]:
+        visited[dx] = True
+        heapq.heappush(hq,(t,dx))  
+    for i in (x+1,x-1):
+        if i >= 0 and i < len(visited) and not visited[i]:
+            visited[i] = True
+            heapq.heappush(hq,(t+1,i))
